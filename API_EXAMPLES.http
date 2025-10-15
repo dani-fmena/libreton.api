@@ -1,0 +1,198 @@
+### Backend API - Example HTTP Requests
+### Use with REST Client extension in VS Code or any HTTP client
+
+@baseUrl = https://localhost:7xxx
+@sessionToken = your-session-token-here
+
+### Health Check / Swagger
+GET {{baseUrl}}/swagger/index.html
+
+### ==========================================
+### Authentication Endpoints
+### ==========================================
+
+### Register a new user
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "test123",
+  "fullName": "Test User"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "test123"
+}
+
+### Login with admin (if seeded)
+# @name adminLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### Logout
+POST {{baseUrl}}/api/auth/logout
+X-Session-Token: {{sessionToken}}
+
+### ==========================================
+### Product Endpoints (Require Authentication)
+### ==========================================
+
+### Get all products
+GET {{baseUrl}}/api/products
+X-Session-Token: {{sessionToken}}
+
+### Get product by ID
+GET {{baseUrl}}/api/products/00000000-0000-0000-0000-000000000000
+X-Session-Token: {{sessionToken}}
+
+### Create a new product
+# @name createProduct
+POST {{baseUrl}}/api/products
+X-Session-Token: {{sessionToken}}
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "description": "High-performance gaming laptop",
+  "price": 1299.99,
+  "stock": 15,
+  "category": "Electronics"
+}
+
+### Create another product
+POST {{baseUrl}}/api/products
+X-Session-Token: {{sessionToken}}
+Content-Type: application/json
+
+{
+  "name": "Wireless Mouse",
+  "description": "Ergonomic wireless mouse with 6 buttons",
+  "price": 29.99,
+  "stock": 50,
+  "category": "Accessories"
+}
+
+### Update a product
+PUT {{baseUrl}}/api/products/00000000-0000-0000-0000-000000000000
+X-Session-Token: {{sessionToken}}
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop - Updated",
+  "description": "High-performance gaming laptop with RGB keyboard",
+  "price": 1199.99,
+  "stock": 12,
+  "category": "Electronics"
+}
+
+### Delete a product (soft delete)
+DELETE {{baseUrl}}/api/products/00000000-0000-0000-0000-000000000000
+X-Session-Token: {{sessionToken}}
+
+### ==========================================
+### Test Cases - Validation Errors
+### ==========================================
+
+### Register - Missing required fields
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+### Register - Invalid email format
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "email": "invalid-email",
+  "password": "password123",
+  "fullName": "New User"
+}
+
+### Register - Password too short
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "newuser2",
+  "email": "newuser2@example.com",
+  "password": "123",
+  "fullName": "New User 2"
+}
+
+### Register - Duplicate username
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "another@example.com",
+  "password": "password123",
+  "fullName": "Another User"
+}
+
+### Login - Invalid credentials
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "wrongpassword"
+}
+
+### Create Product - Negative price
+POST {{baseUrl}}/api/products
+X-Session-Token: {{sessionToken}}
+Content-Type: application/json
+
+{
+  "name": "Invalid Product",
+  "description": "This should fail",
+  "price": -10.00,
+  "stock": 5,
+  "category": "Test"
+}
+
+### Create Product - Negative stock
+POST {{baseUrl}}/api/products
+X-Session-Token: {{sessionToken}}
+Content-Type: application/json
+
+{
+  "name": "Invalid Product 2",
+  "description": "This should also fail",
+  "price": 100.00,
+  "stock": -5,
+  "category": "Test"
+}
+
+### Get Product - Without authentication (should fail)
+GET {{baseUrl}}/api/products
+
+### ==========================================
+### Notes
+### ==========================================
+
+# 1. Replace {{baseUrl}} with your actual API URL
+# 2. After login, copy the sessionToken from response and update @sessionToken variable
+# 3. Replace product IDs with actual IDs from your database
+# 4. All product endpoints require X-Session-Token header
+# 5. Sessions expire after 30 minutes of inactivity
