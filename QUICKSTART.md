@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get the BackendAPI up and running in minutes!
+Get the LibretonAPI up and running in minutes!
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ Or let the migrations create it automatically!
 
 ## Step 3: Update Connection Strings
 
-Edit `src/BackendAPI.Api/appsettings.json`:
+Edit `src/LibretonAPI.Api/appsettings.json`:
 
 ```json
 {
@@ -55,14 +55,14 @@ Edit `src/BackendAPI.Api/appsettings.json`:
 }
 ```
 
-Also update `src/BackendAPI.Console/appsettings.json` with the same connection string.
+Also update `src/LibretonAPI.Console/appsettings.json` with the same connection string.
 
 ## Step 4: Run Migrations
 
 ### Option A: Using Console Application (Recommended)
 
 ```bash
-cd src/BackendAPI.Console
+cd src/LibretonAPI.Console
 dotnet run
 ```
 
@@ -77,14 +77,14 @@ Select:
 dotnet tool install --global dotnet-ef
 
 # Run migrations
-cd src/BackendAPI.Api
-dotnet ef database update --project ../BackendAPI.Data
+cd src/LibretonAPI.Api
+dotnet ef database update --project ../LibretonAPI.Data
 ```
 
 ## Step 5: Run the API
 
 ```bash
-cd src/BackendAPI.Api
+cd src/LibretonAPI.Api
 dotnet run
 ```
 
@@ -194,7 +194,7 @@ dotnet dev-certs https --trust
 - Test authentication flow
 
 ### 2. Add Your Own Features
-- Create new entities in `BackendAPI.Data/Entities/`
+- Create new entities in `LibretonAPI.Data/Entities/`
 - Add repositories to UnitOfWork
 - Create services and controllers
 - Run migrations
@@ -209,12 +209,12 @@ dotnet dev-certs https --trust
 ## Project Structure Quick Reference
 
 ```
-BackendAPI/
+LibretonAPI/
 ├── src/
-│   ├── BackendAPI.Api/          # 🌐 REST API
-│   ├── BackendAPI.Console/      # 🛠️ Migration Tool
-│   ├── BackendAPI.Data/         # 💾 Data Access
-│   └── BackendAPI.Shared/       # 📦 Shared Code
+│   ├── LibretonAPI.Api/          # 🌐 REST API
+│   ├── LibretonAPI.Console/      # 🛠️ Migration Tool
+│   ├── LibretonAPI.Data/         # 💾 Data Access
+│   └── LibretonAPI.Shared/       # 📦 Shared Code
 ├── README.md                    # 📖 Main documentation
 ├── ARCHITECTURE.md              # 🏗️ Architecture details
 ├── QUICKSTART.md               # ⚡ This file
@@ -234,8 +234,8 @@ dotnet test
 dotnet clean
 
 # Create new migration
-cd src/BackendAPI.Api
-dotnet ef migrations add MigrationName --project ../BackendAPI.Data
+cd src/LibretonAPI.Api
+dotnet ef migrations add MigrationName --project ../LibretonAPI.Data
 
 # Update database
 dotnet ef database update
@@ -247,7 +247,7 @@ dotnet ef database update PreviousMigrationName
 dotnet ef migrations list
 
 # Remove last migration
-dotnet ef migrations remove --project ../BackendAPI.Data
+dotnet ef migrations remove --project ../LibretonAPI.Data
 ```
 
 ## Development Tips
