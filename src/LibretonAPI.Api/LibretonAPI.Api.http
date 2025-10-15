@@ -1,0 +1,6 @@
+@LibretonAPI.Api_HostAddress = http://localhost:5078
+
+GET {{LibretonAPI.Api_HostAddress}}/weatherforecast/t/
+Accept: application/json
+
+###

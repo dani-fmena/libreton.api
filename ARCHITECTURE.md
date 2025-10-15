@@ -7,9 +7,9 @@ This project implements a clean, layered architecture following SOLID principles
 ## Solution Structure
 
 ```
-BackendAPI/
+LibretonAPI/
 ├── src/
-│   ├── BackendAPI.Api/           # REST API Project
+│   ├── LibretonAPI.Api/           # REST API Project
 │   │   ├── Controllers/          # API endpoints
 │   │   ├── Services/             # Business logic
 │   │   ├── Validators/           # Validation logic with DB access
@@ -17,21 +17,21 @@ BackendAPI/
 │   │   ├── Middleware/           # Custom middleware
 │   │   └── Program.cs            # Application entry point
 │   │
-│   ├── BackendAPI.Data/          # Data Access Layer
+│   ├── LibretonAPI.Data/          # Data Access Layer
 │   │   ├── Context/              # EF Core DbContext
 │   │   ├── Entities/             # Database models
 │   │   ├── Repositories/         # Repository pattern
 │   │   └── UnitOfWork/           # Unit of Work pattern
 │   │
-│   ├── BackendAPI.Shared/        # Shared Library
+│   ├── LibretonAPI.Shared/        # Shared Library
 │   │   ├── Constants/            # Application constants
 │   │   ├── Models/               # Shared models
 │   │   └── Utilities/            # Helper utilities
 │   │
-│   └── BackendAPI.Console/       # Migration Tool
+│   └── LibretonAPI.Console/       # Migration Tool
 │       └── Program.cs            # Database management
 │
-└── BackendAPI.sln                # Solution file
+└── LibretonAPI.sln                # Solution file
 ```
 
 ## Architectural Patterns

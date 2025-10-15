@@ -1,4 +1,4 @@
-# BackendAPI - .NET 8.0 C# Backend API
+# LibretonAPI - .NET 8.0 C# Backend API
 
 A multiplatform .NET 8.0 backend API with repository pattern, Entity Framework, PostgreSQL, and session-based authentication.
 
@@ -6,7 +6,7 @@ A multiplatform .NET 8.0 backend API with repository pattern, Entity Framework, 
 
 The solution consists of three projects:
 
-### 1. **BackendAPI.Api** - REST API
+### 1. **LibretonAPI.Api** - REST API
 The main API project with layered architecture:
 - **Controllers**: Handle HTTP requests and responses
 - **Services**: Business logic layer
@@ -14,20 +14,20 @@ The main API project with layered architecture:
 - **DTOs**: Data Transfer Objects
 - **Middleware**: Custom authentication middleware
 
-### 2. **BackendAPI.Console** - Database Migration Tool
+### 2. **LibretonAPI.Console** - Database Migration Tool
 Console application for database management:
 - Run migrations
 - Clear database
 - Drop and recreate database
 - Seed sample data
 
-### 3. **BackendAPI.Shared** - Shared Library
+### 3. **LibretonAPI.Shared** - Shared Library
 Shared code across projects:
 - Constants (error messages, validation messages, auth settings)
 - Models (BaseEntity, ApiResponse)
 - Utilities (PasswordHasher)
 
-### 4. **BackendAPI.Data** - Data Access Layer
+### 4. **LibretonAPI.Data** - Data Access Layer
 Repository pattern with Unit of Work:
 - **Entities**: Database models (User, Product)
 - **Repositories**: Generic repository pattern
@@ -73,8 +73,8 @@ Repository pattern with Unit of Work:
 ### 1. Configure Database Connection
 
 Update the connection string in:
-- `src/BackendAPI.Api/appsettings.json`
-- `src/BackendAPI.Console/appsettings.json`
+- `src/LibretonAPI.Api/appsettings.json`
+- `src/LibretonAPI.Console/appsettings.json`
 
 ```json
 {
@@ -89,7 +89,7 @@ Update the connection string in:
 Using the Console application:
 
 ```bash
-cd src/BackendAPI.Console
+cd src/LibretonAPI.Console
 dotnet run
 ```
 
@@ -100,15 +100,15 @@ Select option:
 Or using EF Core CLI:
 
 ```bash
-cd src/BackendAPI.Api
-dotnet ef migrations add InitialCreate --project ../BackendAPI.Data
+cd src/LibretonAPI.Api
+dotnet ef migrations add InitialCreate --project ../LibretonAPI.Data
 dotnet ef database update
 ```
 
 ### 3. Run the API
 
 ```bash
-cd src/BackendAPI.Api
+cd src/LibretonAPI.Api
 dotnet run
 ```
 
@@ -266,7 +266,7 @@ When you seed the database (Console app option 4), the following users are creat
 ## Configuration
 
 ### Authentication Settings
-Located in `BackendAPI.Shared/Constants/AppConstants.cs`:
+Located in `LibretonAPI.Shared/Constants/AppConstants.cs`:
 - Session expiration: 30 minutes
 - Session key prefix: "Session_"
 - Auth header name: "X-Session-Token"
@@ -290,13 +290,13 @@ dotnet test
 
 ### Creating New Migrations
 ```bash
-cd src/BackendAPI.Api
-dotnet ef migrations add MigrationName --project ../BackendAPI.Data
+cd src/LibretonAPI.Api
+dotnet ef migrations add MigrationName --project ../LibretonAPI.Data
 dotnet ef database update
 ```
 
 ### Adding New Entities
-1. Create entity in `BackendAPI.Data/Entities/` inheriting from `BaseEntity`
+1. Create entity in `LibretonAPI.Data/Entities/` inheriting from `BaseEntity`
 2. Add DbSet to `ApplicationDbContext`
 3. Configure entity in `OnModelCreating`
 4. Add repository property to `IUnitOfWork` and `UnitOfWork`
