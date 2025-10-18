@@ -27,7 +27,7 @@ _misc_
 ## 📑 Table of content
 
 0. ### 👓 [Overview]
-1. ### 🚀 [Getting Started]
+1. ### ✨ [Getting Started]
 2. ### 🔨 [Architecture]
    
    2.1 💽 [Database]

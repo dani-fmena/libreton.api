@@ -1,4 +1,4 @@
-I. 🚀 Getting Started
+I. ✨ Getting Started
 ===
 
 ## Prerequisites
