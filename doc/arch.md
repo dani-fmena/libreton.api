@@ -1,8 +1,35 @@
-# Architecture Documentation
-
-## Overview
+II. 🔨 Architecture
+===
 
 This project implements a clean, layered architecture following SOLID principles and industry best practices for .NET applications.
+
+## Monolithic Layered (N-Layer) Architecture
+
+1. **Controller Layer**: API endpoints (`AuthController`, `ProductsController`)
+2. **Validation Layer**: Request validation with database access (`AuthValidator`, `ProductValidator`)
+3. **Service Layer**: Business logic (`AuthService`, `ProductService`)
+4. **Data Access Layer**: Repository pattern with UoW (`IRepository<T>`, `IUnitOfWork`)
+
+## Key Features
+
+#### Repository Pattern with Unit of Work
+- Generic repository for CRUD operations
+- Unit of Work for transaction management
+- Soft delete support
+- Query filtering for non-deleted entities
+
+#### Authentication System
+- Session-based authentication using memory cache
+- Session expiration (30 minutes default)
+- Custom authentication middleware
+- Session token via `X-Session-Token` header
+
+#### Entity Framework Configuration
+- PostgreSQL database provider
+- Code-first approach with migrations
+- Query filters for soft deletes
+- Unique indexes on username and email
+# Architecture Documentation
 
 ## Solution Structure
 
@@ -36,7 +63,12 @@ LibretonAPI/
 
 ## Architectural Patterns
 
-### 1. Layered Architecture
+### 1. Monolithic Layered (N-Layer) Architecture
+
+1. **Controller Layer**: API endpoints (`AuthController`, `ProductsController`)
+2. **Validation Layer**: Request validation with database access (`AuthValidator`, `ProductValidator`)
+3. **Service Layer**: Business logic (`AuthService`, `ProductService`)
+4. **Data Access Layer**: Repository pattern with UoW (`IRepository<T>`, `IUnitOfWork`)
 
 The application follows a strict layered architecture:
 
@@ -345,113 +377,3 @@ public async Task<List<string>> ValidateRegisterRequestAsync(RegisterRequest req
 }
 ```
 
-## Scalability Considerations
-
-### Current Implementation
-
-- In-memory session cache (single server)
-- Direct database access
-- Synchronous operations where possible
-
-### Future Enhancements
-
-For production environments, consider:
-
-1. **Distributed Cache**: Replace MemoryCache with Redis
-2. **Message Queue**: Add RabbitMQ/Azure Service Bus for async operations
-3. **API Gateway**: Add rate limiting and load balancing
-4. **Logging**: Integrate Serilog or Application Insights
-5. **Health Checks**: Add endpoint monitoring
-6. **CQRS**: Separate read/write operations for complex domains
-
-## Testing Strategy
-
-### Unit Testing
-
-Test each layer independently:
-
-```csharp
-// Repository tests with in-memory database
-// Service tests with mock repositories
-// Controller tests with mock services
-// Validator tests with mock unit of work
-```
-
-### Integration Testing
-
-Test the full stack:
-
-```csharp
-// Database integration tests
-// API endpoint tests
-// Authentication flow tests
-```
-
-## Performance Optimization
-
-### Implemented Optimizations
-
-1. **Async/Await**: All I/O operations are asynchronous
-2. **Query Filters**: Automatic soft delete filtering
-3. **Indexes**: Username and Email indexed for fast lookups
-4. **Connection Pooling**: Enabled by default in Npgsql
-5. **Memory Cache**: Fast session validation
-
-### Best Practices
-
-- Use `AsNoTracking()` for read-only queries
-- Implement pagination for large datasets
-- Use bulk operations for multiple inserts
-- Cache frequently accessed data
-- Monitor query execution plans
-
-## Security Checklist
-
-✅ Password hashing (SHA256)  
-✅ Session expiration  
-✅ SQL injection prevention (EF Core)  
-✅ Input validation  
-✅ Soft delete for data recovery  
-✅ CORS configuration  
-✅ HTTPS enforcement  
-
-### Additional Security Recommendations
-
-- [ ] Implement stronger password hashing (bcrypt/Argon2)
-- [ ] Add rate limiting
-- [ ] Implement refresh tokens
-- [ ] Add request/response encryption
-- [ ] Enable audit logging
-- [ ] Add API versioning
-- [ ] Implement JWT tokens for stateless auth
-
-## Deployment Considerations
-
-### Database
-
-- Ensure PostgreSQL is installed and running
-- Apply migrations before deployment
-- Set strong database credentials
-- Enable connection pooling
-- Configure backup strategy
-
-### Application
-
-- Set appropriate connection strings
-- Configure CORS for production domains
-- Enable HTTPS only
-- Set proper session timeout
-- Configure logging levels
-- Monitor application health
-
-### Environment Variables
-
-Consider externalizing:
-- Connection strings
-- Session timeout values
-- Cache expiration settings
-- API keys and secrets
-
-## Conclusion
-
-This architecture provides a solid foundation for building scalable, maintainable .NET applications. The separation of concerns, dependency injection, and established patterns make the codebase easy to understand, test, and extend.
